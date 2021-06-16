@@ -6,6 +6,8 @@ describe("Greeter", function() {
     const greeter = await Greeter.deploy("Hello, world!");
     
     await greeter.deployed();
+    let response = await greeter.greet();
+    console.log(response);
     expect(await greeter.greet()).to.equal("Hello, world!");
 
     await greeter.setGreeting("Hola, mundo!");
