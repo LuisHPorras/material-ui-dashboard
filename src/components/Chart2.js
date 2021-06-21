@@ -1,0 +1,35 @@
+import React from 'react'
+import { useTheme } from '@material-ui/core';
+import {ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar} from 'recharts'
+import Title from './Title'
+
+const data = [
+    {name: 'a', pv: 1, uv: 2},
+    {name: 'b', pv: 15, uv: 10},
+    {name: 'c', pv: 23, uv: 4},
+    {name: 'd', pv: 12, uv: 16},
+    {name: 'e', pv: 3, uv: 8},
+    {name: 'f', pv: 5, uv: 0},
+];
+
+function Chart2() {
+  const theme = useTheme();
+  return(
+    <React.Fragment>
+      <Title>Male/Female</Title>
+      <ResponsiveContainer>
+        <BarChart width={730} height={250} data={data}>
+          {/* <CartesianGrid strokeDasharray="3 3" /> */}
+          <XAxis dataKey="name" stroke={theme.palette.text.secondary}/>
+          <YAxis stroke={theme.palette.text.secondary}/>
+          <Tooltip />
+          <Legend style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}/>
+          <Bar dataKey="pv" fill={theme.palette.primary.main} />
+          <Bar dataKey="uv" fill={theme.palette.primary.secundary} />
+        </BarChart>
+      </ResponsiveContainer>
+    </React.Fragment>
+  );
+}
+
+export default Chart2;

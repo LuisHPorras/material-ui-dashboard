@@ -20,6 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
+import Chart2 from './Chart2';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import MapChart from './MapChart';
@@ -193,9 +194,15 @@ export default function Dashboard() {
               </Paper>
             </Grid>
             {/*Simple maps map*/}
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6}>
               <Paper className={classes.paper}>
                 <MapChart />
+              </Paper>
+            </Grid>
+            {/*Bar chart*/}
+            <Grid item xs={12} lg={6}>
+              <Paper className={fixedHeightPaper}>
+                <Chart2 />
               </Paper>
             </Grid>
           </Grid>
