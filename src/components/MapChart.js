@@ -1,5 +1,7 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { geoCentroid } from "d3-geo";
+import { scaleQuantize } from "d3-scale";
 import {
   ComposableMap,
   Geographies,
@@ -7,64 +9,50 @@ import {
   Marker,
   Annotation
 } from "react-simple-maps";
+import red from '../themes/red'
+import map from "../data/spain_lvl2_modified.json";
+import jobs from "../data/empleos.json";
 
-import allStates from "../data/allstates.json";
-
-const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
-
-const offsets = {
-  VT: [50, -8],
-  NH: [34, 2],
-  MA: [30, -1],
-  RI: [28, 2],
-  CT: [35, 10],
-  NJ: [34, 1],
-  DE: [33, 0],
-  MD: [47, 10],
-  DC: [49, 21]
-};
+const colorShades = [50,100,200,300,400,500,600,700,800,900];
+const colorScale = scaleQuantize().domain([0,3000]).range(colorShades);
 
 const MapChart = () => {
   return (
-    <ComposableMap projection="geoAlbersUsa">
-      <Geographies geography={geoUrl}>
+    // Magic numbers to center and scale the map properly
+    <ComposableMap projection="geoAzimuthalEqualArea" projectionConfig={{scale: 3300, center: [-4,39]}}>
+      <Geographies geography={map}>
+
         {({ geographies }) => (
           <>
-            {geographies.map(geo => (
-              <Geography
-                key={geo.rsmKey}
-                stroke="#FFF"
-                geography={geo}
-                fill="#DDD"
-              />
-            ))}
             {geographies.map(geo => {
-              const centroid = geoCentroid(geo);
-              const cur = allStates.find(s => s.val === geo.id);
+              const curr = jobs.find(j => j.id === geo.properties.NAME_2);
+              console.log(curr);
               return (
-                <g key={geo.rsmKey + "-name"}>
-                  {cur &&
-                    centroid[0] > -160 &&
-                    centroid[0] < -67 &&
-                    (Object.keys(offsets).indexOf(cur.id) === -1 ? (
-                      <Marker coordinates={centroid}>
-                        <text y="2" fontSize={14} textAnchor="middle">
-                          {cur.id}
-                        </text>
-                      </Marker>
-                    ) : (
-                      <Annotation
-                        subject={centroid}
-                        dx={offsets[cur.id][0]}
-                        dy={offsets[cur.id][1]}
-                      >
-                        <text x={4} fontSize={14} alignmentBaseline="middle">
-                          {cur.id}
-                        </text>
-                      </Annotation>
-                    ))}
-                </g>
+                <Geography
+                  key={geo.rsmKey}
+                  stroke="#FFF"
+                  geography={geo}
+                  fill={red[colorScale(curr === undefined ? 0 : curr.empleos)]}
+                />
               );
+            })}
+            {geographies.map(geo => {
+              const centroid = geoCentroid(geo);  
+              const curr = jobs.find(j => j.id === geo.properties.NAME_2);
+              if(curr == undefined) {
+                return null;
+              } 
+              else {
+                return (
+                  <g key={geo.rsmKey + "-name"}>
+                    {<Marker coordinates={centroid}>
+                      <text y="2" fontSize={14} textAnchor="middle" fill="#fff">
+                        {curr.empleos}
+                      </text>
+                    </Marker>}
+                  </g>
+                );
+              } 
             })}
           </>
         )}

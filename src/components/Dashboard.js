@@ -117,6 +117,9 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  fullHeight: {
+    height: '100%',
+  }
 }));
 
 export default function Dashboard() {
@@ -129,6 +132,7 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const fullHeightPaper = clsx(classes.paper, classes.fullHeight);
 
   return (
     <div className={classes.root}>
@@ -201,7 +205,7 @@ export default function Dashboard() {
             </Grid>
             {/*Bar chart*/}
             <Grid item xs={12} lg={6}>
-              <Paper className={fixedHeightPaper}>
+              <Paper className={fullHeightPaper}>
                 <Chart2 />
               </Paper>
             </Grid>
