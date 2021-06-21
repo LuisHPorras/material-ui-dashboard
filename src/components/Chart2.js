@@ -12,20 +12,20 @@ const data = [
     {name: 'f', pv: 5, uv: 0},
 ];
 
-function Chart2() {
+const Chart2 = () => {
   const theme = useTheme();
   return(
     <React.Fragment>
       <Title>Male/Female</Title>
       <ResponsiveContainer>
-        <BarChart width={730} height={250} data={data}>
+        <BarChart data={data}>
           {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis dataKey="name" stroke={theme.palette.text.secondary}/>
           <YAxis stroke={theme.palette.text.secondary}/>
-          <Tooltip />
+          {/* <Tooltip /> */}
           <Legend style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}/>
           <Bar dataKey="pv" fill={theme.palette.primary.main} />
-          <Bar dataKey="uv" fill={theme.palette.primary.secundary} />
+          <Bar dataKey="uv" fill={theme.palette.primary.light} />
         </BarChart>
       </ResponsiveContainer>
     </React.Fragment>
