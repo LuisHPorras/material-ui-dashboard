@@ -3,4 +3,4 @@ cache/
 artifacts/
 private/
 *.env
-./src/secrets.json
+src/secrets.json
