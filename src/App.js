@@ -1,16 +1,28 @@
 import logo from './logo.svg';
 import { v4 as uuidv4 } from 'uuid';
 import React, { useState } from 'react';
-import Web3 from 'web3';
+import { ethers } from 'ethers';
 import { Alert } from './abi/abi-alert';
+import { test } from "./secrets.json";
 import './App.css';
 import { makeStyles, Container, Grid, TextField, Button} from '@material-ui/core';
-import Title from "./components/Title"
-import { flexbox } from '@material-ui/system';
+import Title from "./components/Title";
 
-const web3 = new Web3(Web3.givenProvider);
+
 const contractAdress = "0x5b060E84B1F3C554f432879AfcA2dEBf269fdB28";
-const alertContract = new web3.eth.Contract(Alert, contractAdress);
+
+// Using Web3 Provider and Metamask
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+const alertContract = new ethers.Contract(contractAdress, Alert, signer);
+
+// TODO: Using Infura provider and Metamask
+// const provider = new ethers.providers.InfuraProvider('rinkeby', test.infuraProjectID);
+// // Since Infura doenst know your private key you cant have a signer, therefore you have to manage the wallet
+// let wallet = ethers.Wallet.fromMnemonic(test.mnemonic);
+// wallet = wallet.connect(provider);
+// const alertContract = new ethers.Contract(contractAdress, Alert, wallet);
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -49,29 +61,20 @@ function App() {
 
   const createAlert = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = await alertContract.methods.create(alert.id, alert.claim).estimateGas();
-    const post = await alertContract.methods.create(alert.id, alert.claim).send({
-      from: account,
-      gas,
-    });
+    const gas = await alertContract.estimateGas.create(alert.id, alert.claim);
+    const post = await alertContract.create(alert.id, alert.claim, {gasLimit:gas});
   };
   
   const updateClaim = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = await alertContract.methods.updateClaim(alert.claim).estimateGas();
-    const post = await alertContract.methods.updateClaim(alert.claim).send({
-      from: account,
-      gas: gas,
-    })
+    const gas = await alertContract.estimateGas.updateClaim(alert.claim);
+    const post = await alertContract.updateClaim(alert.claim, {gasLimit:gas});
   };
 
   const getAlertClaim = async (t) => {
     t.preventDefault();
-    const post = await alertContract.methods.getClaim().call();
+    const post = await alertContract.getClaim();
+    console.log(post);
     setBlockchainClaim(post);
   };
  
