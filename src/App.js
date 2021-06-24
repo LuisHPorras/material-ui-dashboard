@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import { Alert } from './abi/abi-alert';
 import { test } from "./secrets.json";
 import './App.css';
-import { makeStyles, Container, Grid, TextField, Button} from '@material-ui/core';
+import { makeStyles, Container, Grid, TextField, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions} from '@material-ui/core';
 import Title from "./components/Title";
 
 
@@ -56,29 +56,39 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
+  const [openDiag, setDiag] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const [alert, setAlert] = useState({ id: 0, claim: "Claim not set yet" });
   const [blockchainClaim, setBlockchainClaim] = useState("Claim no set yet");
 
   const createAlert = async (t) => {
     t.preventDefault();
-    const gas = await alertContract.estimateGas.create(alert.id, alert.claim);
-    const post = await alertContract.create(alert.id, alert.claim, {gasLimit:gas});
+    try {
+      const gas = await alertContract.estimateGas.create(alert.id, alert.claim);
+      const response = await alertContract.create(alert.id, alert.claim, {gasLimit:gas});
+    } catch (error) {
+      setDiag(true);
+      setErrMsg(error.message);
+    }
+
   };
   
   const updateClaim = async (t) => {
     t.preventDefault();
     const gas = await alertContract.estimateGas.updateClaim(alert.claim);
-    const post = await alertContract.updateClaim(alert.claim, {gasLimit:gas});
+    const response = await alertContract.updateClaim(alert.claim, {gasLimit:gas});
   };
 
   const getAlertClaim = async (t) => {
     t.preventDefault();
-    const post = await alertContract.getClaim();
-    console.log(post);
-    setBlockchainClaim(post);
+    const response = await alertContract.getClaim();
+    setBlockchainClaim(response);
   };
+
+  const handleClose = () => setDiag(false);
  
   return (  
+    <>
     <Container maxWidth="lg" className={classes.container}>
       <Grid container justify="center" alignItems="center" spacing={3}>
         <Grid item lg={4}></Grid>
@@ -110,6 +120,26 @@ function App() {
         <Grid item lg={4}></Grid>
       </Grid>     
     </Container>
+
+    <Dialog
+    open={openDiag}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {errMsg}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary" autoFocus>
+          Retry
+        </Button>
+      </DialogActions>
+    </Dialog>
+    </>
   );
 }
 
