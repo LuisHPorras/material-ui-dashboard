@@ -4,4 +4,3 @@ artifacts/
 private/
 *.env
 src/secrets.json
-src/data/
