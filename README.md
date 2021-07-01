@@ -6,15 +6,19 @@ Folow the activity in the [Wall of Shame](https://github.com/P2PModels/wallofsha
 
 ## Screenshots
 
-<img src="/figures/Form.png" height="200px" >
+<img src="/figures/Form.png" height="300px" >
 
-<img src="/figures/Dashboard.png" height="200px" >
+<img src="/figures/Dashboard.png" height="350px" style="display: inline-block">
 
 ## References
 
 [Dashboard template](https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard) \
 [Map charts library](https://www.react-simple-maps.io/) \
 [Form tutorial](https://www.youtube.com/watch?v=-XKaSCU0ZLM)
+
+## License
+
+[GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Create React App
 
