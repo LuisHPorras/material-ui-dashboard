@@ -6,9 +6,9 @@ Folow the activity in the [Wall of Shame](https://github.com/P2PModels/wallofsha
 
 ## Screenshots
 
-<img src="/figures/Form.png" height="280px" >
+<img src="/figures/Form.png" width="49%" >
 
-<img src="/figures/Dashboard.png" height="315px" style="display: inline-block">
+<img src="/figures/Dashboard.png" width="49%" style="display: inline-block">
 
 ## References
 
