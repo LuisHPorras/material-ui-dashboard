@@ -1,6 +1,8 @@
 # Material-ui Dashboard and Upload Form for P2PModels
 
-Ongoig prototype project "Wall of Shame" to combine blockchain and data-activivism. Folow the activity in the [Wall of Shame](https://github.com/P2PModels/wallofshame-frontend) official repo.
+Ongoig prototype project "Wall of Shame" to combine blockchain and data-activivism. \
+\
+Folow the activity in the [Wall of Shame](https://github.com/P2PModels/wallofshame-frontend) official repo.
 
 ## Screenshots
 
@@ -14,10 +16,9 @@ Dash board
 
 ## References
 
-[Dashboard template](https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard)
-[Map charts library](https://www.react-simple-maps.io/)
-[Form tutorial](https://www.youtube.com/watch?v=-XKaSCU0ZLM)
-
+[Dashboard template](https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard) \
+[Map charts library](https://www.react-simple-maps.io/) \
+[Form tutorial](https://www.youtube.com/watch?v=-XKaSCU0ZLM) \
 
 # Getting Started with Create React App
 
