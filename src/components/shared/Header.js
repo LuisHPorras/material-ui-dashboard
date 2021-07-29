@@ -18,15 +18,15 @@ const logoSrc = './assets/smart-logo.png'
 
 const headersData = [
     {
-        label: 'Add non-payment',
-        href: '/add-non-payment',
-    },
-    {
-        label: 'Dashboard',
+        label: 'Panel central',
         href: '/',
     },
     {
-        label: 'My Account',
+        label: 'Emitir sello',
+        href: '/issue-badge',
+    },
+    {
+        label: 'M',
         href: '/account',
     },
 ]

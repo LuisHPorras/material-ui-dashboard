@@ -14,10 +14,17 @@ export function useForm(initialFValues) {
         })
     }
 
+    const submit = (m) => {
+        console.log("Im sumbiting")
+        // Triger mutation
+        m(values)     
+    }
+
     return {
         values,
         setValues,
         handleInputChange,
+        submit
     }
 }
 

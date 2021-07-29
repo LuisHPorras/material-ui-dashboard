@@ -1,7 +1,7 @@
-export const getSectorOptions = () => [
-    { value: '1', label: 'Fotografía' },
-    { value: '2', label: 'Diseño gráfico' },
-    { value: '3', label: 'Artes plásticas' },
+export const getAreaOptions = () => [
+    { value: 'Comunicación', label: 'Comunicación' },
+    { value: 'Diseño gráfico', label: 'Diseño gráfico' },
+    { value: 'Emprendimiento Agroecológico', label: 'Emprendimiento Agroecológico' },
 ]
 
 export const getAgeRangeOptions = () => [

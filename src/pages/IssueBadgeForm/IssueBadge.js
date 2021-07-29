@@ -7,7 +7,7 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
-import AddNonPaymentForm from './AddNonPaymentForm'
+import IssueBadgeForm from './IssueBadgeForm'
 
 const useStyles = makeStyles(theme => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function AddNonPayment() {
+export default function IssueBadge() {
     const classes = useStyles()
 
     return (
@@ -63,8 +63,7 @@ export default function AddNonPayment() {
                                 variant="h3"
                                 className={classes.title}
                             >
-                                Unpaid invoices form to fill by Smart Core team
-                                members
+                                Formulario de emisión de sellos
                             </Typography>
                         </Grid>
                     </Grid>
@@ -74,9 +73,9 @@ export default function AddNonPayment() {
                         <Grid item xs={8}>
                             <Typography component="p" variant="h5" gutterBottom>
                                 Por favor, completa el siguiente formulario para
-                                guardar una factura como impagada
+                                emitir un sello
                             </Typography>
-                            <AddNonPaymentForm />
+                            <IssueBadgeForm />
                         </Grid>
                     </Grid>
                 </Container>
