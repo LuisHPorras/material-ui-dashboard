@@ -14,6 +14,7 @@
         "csvtojson": "^2.0.10",
         "d3-geo": "^2.0.2",
         "date-fns": "^2.0.0-beta.5",
+        "ethers": "^5.4.3",
         "fontsource-roboto": "^4.0.0",
         "graphql": "^15.5.1",
         "prop-types": "^15.7.2",
@@ -24,6 +25,7 @@
         "react-scripts": "4.0.3",
         "react-simple-maps": "^2.3.0",
         "recharts": "^2.0.9",
+        "use-metamask": "^1.2.2",
         "uuid": "^8.3.2",
         "web-vitals": "^1.0.1"
     },

@@ -1,10 +1,11 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Typography, TextField } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { v4 as uuid } from 'uuid';
 import { useForm, Form } from '../../components/shared/useForm'
 import Controls from '../../components/shared/controls/Controls'
+import InfoDialog from '../../components/shared/InfoDialog';
 import * as issueBadgeOptions from '../../services/issueBadgeOptions'
 
 import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
@@ -60,13 +61,19 @@ export default function IssueBadgeForm() {
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
 
-
-    // if (loading) return 'Emitiendo...';
-    // if (error) return `Error! ${error.message}`;
+    if (loading) return ( <Typography>Cargando...</Typography>
+    )
+    if (error) return(
+        <InfoDialog
+            title="Error"
+            contentText={error.message}
+            closeButtonText="Cerrar"
+        />
+    );
 
     return (
         <div className={classes.root}>
-            <Form onSubmit={submit(issueBadge)}>
+            <Form onSubmit={submit(issueBadge, {variables: {data: values}})}>
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography>1.- Datos que se almacenarán en la Blockchain de forma pública</Typography>

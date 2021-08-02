@@ -16,7 +16,7 @@ import Controls from './controls/Controls'
 
 const logoSrc = './assets/smart-logo.png'
 
-const headersData = [
+const headerMenuLinks = [
     {
         label: 'Panel central',
         href: '/',
@@ -26,8 +26,9 @@ const headersData = [
         href: '/issue-badge',
     },
     {
-        label: 'M',
+        label: '🦊',
         href: '/account',
+        style: {backgroundColor: '#f6851b'}
     },
 ]
 
@@ -137,7 +138,7 @@ export default function Header() {
     }
 
     const getDrawerChoices = () => {
-        return headersData.map(({ label, href }) => {
+        return headerMenuLinks.map(({ label, href, style }) => {
             return (
                 <Link
                     {...{
@@ -146,6 +147,8 @@ export default function Header() {
                         color: 'inherit',
                         style: { textDecoration: 'none' },
                         key: label,
+                        className: menuButton,
+                        style: style
                     }}
                 >
                     <MenuItem>{label}</MenuItem>
@@ -161,7 +164,7 @@ export default function Header() {
     )
 
     const getMenuButtons = () => {
-        return headersData.map(({ label, href }, i) => {
+        return headerMenuLinks.map(({ label, href, style }, i) => {
             return (
                 <Controls.Button
                     {...{
@@ -170,6 +173,7 @@ export default function Header() {
                         to: href,
                         component: RouterLink,
                         className: menuButton,
+                        style: style
                     }}
                 >
                     {label}

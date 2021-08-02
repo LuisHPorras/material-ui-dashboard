@@ -5,6 +5,8 @@ import {
     ApolloProvider,
   } from "@apollo/client";
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { MetamaskStateProvider } from "use-metamask";
+
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 
@@ -32,7 +34,9 @@ function App() {
                             <Dashboard></Dashboard>
                         </Route>
                         <Route exact path="/issue-badge">
-                            <IssueBadge></IssueBadge>
+                            <MetamaskStateProvider>
+                                <IssueBadge></IssueBadge>
+                            </MetamaskStateProvider>
                         </Route>
                     </Switch>
                     <Footer />
