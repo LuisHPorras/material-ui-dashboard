@@ -31,41 +31,42 @@ const styles = (theme) => ({
   });
 
 function ActionDialog(props) {
-
-    const { title, contentText, primaryActionButton, primaryActionHandler, secondaryActionButton, secondaryActionHandler, closeHandler } = props
-    const [open, setOpen] = useState(true)
   
-    const handleClose = () => {
-      setOpen(false)
-    }
+  const { title, contentText, primaryActionButton, primaryActionHandler, secondaryActionButton, secondaryActionHandler, closeHandler} = props
 
-    useEffect(() => {
-        setOpen(true)
-    })
-
-    return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title" onClose={closeHandler}>{title}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    {contentText}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={secondaryActionHandler} color="secondary" autoFocus>
-                    {secondaryActionButton}
-                </Button>
-                <Button onClick={primaryActionHandler} color="primary" autoFocus>
-                    {primaryActionButton}
-                </Button>
-            </DialogActions>
-        </Dialog>
-    )
+  const [open, setOpen] = useState(true)
+  
+  const handleClose = () => {
+    setOpen(false)
+  }
+  
+  useEffect(() => {
+    setOpen(true)
+  })
+  
+  return (
+      <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+      >
+          <DialogTitle id="alert-dialog-title" onClose={closeHandler}>{title}</DialogTitle>
+          <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                  {contentText}
+              </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+              <Button onClick={secondaryActionHandler} color="secondary" autoFocus>
+                  {secondaryActionButton}
+              </Button>
+              <Button onClick={primaryActionHandler} color="primary" autoFocus>
+                  {primaryActionButton}
+              </Button>
+          </DialogActions>
+      </Dialog>
+  )
 }
 
 export default ActionDialog

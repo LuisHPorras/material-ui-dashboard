@@ -9,6 +9,7 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
+import clsx from 'clsx';
 import IssueBadgeForm from './IssueBadgeForm'
 import Controls from '../../components/shared/controls/Controls'
 import ActionDialog from '../../components/shared/ActionDialog';
@@ -49,20 +50,25 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "flex-end", 
         alignItems: "flex-start",
     },
-    metamaskButton: {
+    metamaskButton: {},
+    metamaskEnabled: {
         backgroundColor: '#f6851b',
+    },
+    metamaskDisabled: {
+        backgroundColor: '#cdcdcd',
+        '&:hover': {
+            backgroundColor: '#ababab',
+        },
     }
 }))
 
 export default function IssueBadge() {
     const classes = useStyles()
     
-    const [ web3User, setWeb3User ] = useState(false)
+    const [ enMetamaskDialog, setEnMetamaskDialog ] = useState(false)
     const { connect, metaState } = useMetamask();
 
-    const onClickWeb3 = () => {
-        setWeb3User(true)
-        if (!metaState.isAvailable) return
+    const connectWeb3 = () => {
         if (!metaState.isConnected) {
             (async () => {
               try {
@@ -74,19 +80,18 @@ export default function IssueBadge() {
         }
     }
 
-
     return (
         <div>
-            {web3User && !metaState.isAvailable ? 
+            {
+                enMetamaskDialog ? 
                 <ActionDialog
                     title="🦊 Instala Metamask  🦊"
-                    contentText="No se ha detectado Metamask. Para poder realizar acciones utilizando Ethereum debes instalar el plugin de Metamask.\n Una vez hayas finalizado la instalación refresca la página o pulsa en Hecho"
+                    contentText="No se ha detectado Metamask. Para poder realizar acciones utilizando Ethereum debes instalar el plugin de Metamask. Una vez hayas finalizado la instalación refresca la página o pulsa en Hecho"
                     primaryActionButton="Ir a metamask.io"
                     primaryActionHandler={() => window.open("https://metamask.io", '_blank')}
                     secondaryActionButton="Hecho"
                     secondaryActionHandler={() => window.location.reload()}
-                    // If the user simply closes the Dialog we asume its not a web3 user
-                    closeHandler={() => setWeb3User(false)}
+                    closeHandler={() => setEnMetamaskDialog(false)}
                 />:
                 ''
             }
@@ -121,11 +126,20 @@ export default function IssueBadge() {
                             <IssueBadgeForm />
                         </Grid>
                         <Grid item xs={3} className={classes.flexItemEnd}>
-                            <Controls.Button
-                                text="CONECTAR METAMASK 🦊"
-                                className={classes.metamaskButton}
-                                onClick={onClickWeb3}
-                            />
+                            {
+                                metaState.isAvailable ? 
+                                    <Controls.Button
+                                        text={"CONECTAR METAMASK 🦊"}
+                                        className={clsx(classes.metamaskButton, classes.metamaskEnabled)}
+                                        onClick={connectWeb3}
+                                    />
+                                :
+                                    <Controls.Button
+                                        text={"HABILITAR METAMASK 🦊"}
+                                        className={clsx(classes.metamaskButton, classes.metamaskDisabled)}
+                                        onClick={() => setEnMetamaskDialog(true)}
+                                    />
+                            }
                         </Grid>
                     </Grid>
                 </Container>
