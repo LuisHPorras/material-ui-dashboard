@@ -1,15 +1,14 @@
 import { React, useState } from 'react'
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 import { useForm, Form } from '../../components/shared/useForm'
 import Controls from '../../components/shared/controls/Controls'
-import InfoDialog from '../../components/shared/InfoDialog';
+import InfoDialog from '../../components/shared/InfoDialog'
 import * as issueBadgeOptions from '../../services/issueBadgeOptions'
 
 import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
-
 
 const genderItems = [
     {
@@ -26,7 +25,7 @@ const genderItems = [
     },
 ]
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(theme => ({
     root: {
         '& hr': {
             color: 'transparent',
@@ -37,13 +36,13 @@ const useStyles = makeStyles( theme => ({
         },
     },
     spacer: {
-        width: '52%'
+        width: '52%',
     },
     w100: {
-        width: '100% !important' 
+        width: '100% !important',
     },
     ml4: {
-        marginLeft: '4% !important' 
+        marginLeft: '4% !important',
     },
 }))
 
@@ -52,31 +51,36 @@ const initialFValues = {
     issuerName: '',
     recipientName: '',
     area: '',
-    issueDate: new Date,
+    issueDate: new Date(),
 }
 
 export default function IssueBadgeForm() {
     const classes = useStyles()
-    
+
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
 
-    if (loading) return ( <Typography>Cargando...</Typography>
-    )
-    if (error) return(
-        <InfoDialog
-            title="Error"
-            contentText={error.message}
-            closeButtonText="Cerrar"
-        />
-    );
+    if (loading) return <Typography>Cargando...</Typography>
+    if (error)
+        return (
+            <InfoDialog
+                title="Error"
+                contentText={error.message}
+                closeButtonText="Cerrar"
+            />
+        )
 
     return (
         <div className={classes.root}>
-            <Form onSubmit={submit(issueBadge, {variables: {data: values}})}>
+            <Form
+                onSubmit={submit(issueBadge, { variables: { data: values } })}
+            >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
-                        <Typography>1.- Datos que se almacenarán en la Blockchain de forma pública</Typography>
+                        <Typography>
+                            1.- Datos que se almacenarán en la Blockchain de
+                            forma pública
+                        </Typography>
                         <Controls.Input
                             name="issuerName"
                             label="Persona/Entidad emisora"
@@ -95,7 +99,9 @@ export default function IssueBadgeForm() {
                 <hr />
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
-                        <Typography my={1}>2.- Datos registrados de forma privada por Smart</Typography>
+                        <Typography my={1}>
+                            2.- Datos registrados de forma privada por Smart
+                        </Typography>
                         <Controls.Select
                             name="area"
                             label="Área"
@@ -108,10 +114,7 @@ export default function IssueBadgeForm() {
                 <hr />
                 <Grid container spacing={1} justify="flex-end">
                     <Grid item>
-                        <Controls.Button 
-                            type="submit"
-                            text="EMITIR SELLO"
-                        />
+                        <Controls.Button type="submit" text="EMITIR SELLO" />
                     </Grid>
                 </Grid>
             </Form>

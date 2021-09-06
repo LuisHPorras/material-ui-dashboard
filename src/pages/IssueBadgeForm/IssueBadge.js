@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
-import { useMetamask } from "use-metamask";
-import { ethers } from "ethers";
+import { useMetamask } from 'use-metamask'
+import { ethers } from 'ethers'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -9,10 +9,10 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
-import clsx from 'clsx';
+import clsx from 'clsx'
 import IssueBadgeForm from './IssueBadgeForm'
 import Controls from '../../components/shared/controls/Controls'
-import ActionDialog from '../../components/shared/ActionDialog';
+import ActionDialog from '../../components/shared/ActionDialog'
 
 const useStyles = makeStyles(theme => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -46,9 +46,9 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(4),
     },
     flexItemEnd: {
-        display: "flex", 
-        justifyContent: "flex-end", 
-        alignItems: "flex-start",
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
     },
     metamaskButton: {},
     metamaskEnabled: {
@@ -59,42 +59,44 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: '#ababab',
         },
-    }
+    },
 }))
 
 export default function IssueBadge() {
     const classes = useStyles()
-    
-    const [ enMetamaskDialog, setEnMetamaskDialog ] = useState(false)
-    const { connect, metaState } = useMetamask();
+
+    const [enMetamaskDialog, setEnMetamaskDialog] = useState(false)
+    const { connect, metaState } = useMetamask()
 
     const connectWeb3 = () => {
         if (!metaState.isConnected) {
-            (async () => {
-              try {
-                await connect(ethers.providers.Web3Provider, {chainId: 4});
-              } catch (error) {
-                console.log(error);
-              }
-            })();
+            ;(async () => {
+                try {
+                    await connect(ethers.providers.Web3Provider, { chainId: 4 })
+                } catch (error) {
+                    console.log(error)
+                }
+            })()
         }
     }
 
     return (
         <div>
-            {
-                enMetamaskDialog ? 
+            {enMetamaskDialog ? (
                 <ActionDialog
                     title="🦊 Instala Metamask  🦊"
                     contentText="No se ha detectado Metamask. Para poder realizar acciones utilizando Ethereum debes instalar el plugin de Metamask. Una vez hayas finalizado la instalación refresca la página o pulsa en Hecho"
                     primaryActionButton="Ir a metamask.io"
-                    primaryActionHandler={() => window.open("https://metamask.io", '_blank')}
+                    primaryActionHandler={() =>
+                        window.open('https://metamask.io', '_blank')
+                    }
                     secondaryActionButton="Hecho"
                     secondaryActionHandler={() => window.location.reload()}
                     closeHandler={() => setEnMetamaskDialog(false)}
-                />:
+                />
+            ) : (
                 ''
-            }
+            )}
             <CssBaseline />
             <main>
                 <div className={classes.appBarSpacer} />
@@ -126,20 +128,25 @@ export default function IssueBadge() {
                             <IssueBadgeForm />
                         </Grid>
                         <Grid item xs={3} className={classes.flexItemEnd}>
-                            {
-                                metaState.isAvailable ? 
-                                    <Controls.Button
-                                        text={"CONECTAR METAMASK 🦊"}
-                                        className={clsx(classes.metamaskButton, classes.metamaskEnabled)}
-                                        onClick={connectWeb3}
-                                    />
-                                :
-                                    <Controls.Button
-                                        text={"HABILITAR METAMASK 🦊"}
-                                        className={clsx(classes.metamaskButton, classes.metamaskDisabled)}
-                                        onClick={() => setEnMetamaskDialog(true)}
-                                    />
-                            }
+                            {metaState.isAvailable ? (
+                                <Controls.Button
+                                    text={'CONECTAR METAMASK 🦊'}
+                                    className={clsx(
+                                        classes.metamaskButton,
+                                        classes.metamaskEnabled
+                                    )}
+                                    onClick={connectWeb3}
+                                />
+                            ) : (
+                                <Controls.Button
+                                    text={'HABILITAR METAMASK 🦊'}
+                                    className={clsx(
+                                        classes.metamaskButton,
+                                        classes.metamaskDisabled
+                                    )}
+                                    onClick={() => setEnMetamaskDialog(true)}
+                                />
+                            )}
                         </Grid>
                     </Grid>
                 </Container>
