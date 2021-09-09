@@ -5,7 +5,6 @@ export function useForm(initialFValues) {
     const [values, setValues] = useState(initialFValues)
 
     const handleInputChange = e => {
-        
         const { name, value } = e.target
 
         setValues({
@@ -14,17 +13,17 @@ export function useForm(initialFValues) {
         })
     }
 
-    const submit = (queryFcn,payload) => (e) => {
+    const submit = (queryFcn, payload) => e => {
         e.preventDefault()
         // Triger mutation
-        queryFcn(payload)     
+        queryFcn(payload)
     }
 
     return {
         values,
         setValues,
         handleInputChange,
-        submit
+        submit,
     }
 }
 
@@ -39,5 +38,9 @@ const useStyles = makeStyles(theme => ({
 export function Form(props) {
     const classes = useStyles()
 
-    return <form className={classes.root} onSubmit={props.onSubmit}>{props.children}</form>
+    return (
+        <form className={classes.root} onSubmit={props.onSubmit}>
+            {props.children}
+        </form>
+    )
 }

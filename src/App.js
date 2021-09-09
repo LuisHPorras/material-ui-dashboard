@@ -1,11 +1,7 @@
 import React from 'react'
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-  } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { MetamaskStateProvider } from "use-metamask";
+import { MetamaskStateProvider } from 'use-metamask'
 
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -18,10 +14,12 @@ import Footer from './components/shared/Footer'
 
 import theme from './themes/smart'
 
+import config from './config.json'
+
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/',
-    cache: new InMemoryCache()
-});
+    uri: config.gql.theGraphDev,
+    cache: new InMemoryCache(),
+})
 
 function App() {
     return (

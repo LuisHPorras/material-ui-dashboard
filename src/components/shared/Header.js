@@ -13,6 +13,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
+import MetamaskButton from '../../components/MetamaskButton'
 
 const logoSrc = './assets/smart-logo.png'
 
@@ -25,11 +26,11 @@ const headerMenuLinks = [
         label: 'Emitir sello',
         href: '/issue-badge',
     },
-    {
-        label: '🦊',
-        href: '/account',
-        style: {backgroundColor: '#f6851b'}
-    },
+    // {
+    //     label: '🦊',
+    //     href: '/account',
+    //     style: { backgroundColor: '#f6851b' },
+    // },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +49,7 @@ const useStyles = makeStyles(theme => ({
             height: '150px',
             position: 'absolute',
             top: 0,
-        }
+        },
     },
     menuButton: {
         fontFamily: 'Open Sans, sans-serif',
@@ -148,7 +149,7 @@ export default function Header() {
                         style: { textDecoration: 'none' },
                         key: label,
                         className: menuButton,
-                        style: style
+                        style: style,
                     }}
                 >
                     <MenuItem>{label}</MenuItem>
@@ -158,9 +159,9 @@ export default function Header() {
     }
 
     const customLogo = (
-            <Box className={logo}>
-                <img src={logoSrc} /> 
-            </Box>
+        <Box className={logo}>
+            <img src={logoSrc} />
+        </Box>
     )
 
     const getMenuButtons = () => {
@@ -173,7 +174,7 @@ export default function Header() {
                         to: href,
                         component: RouterLink,
                         className: menuButton,
-                        style: style
+                        style: style,
                     }}
                 >
                     {label}
@@ -183,7 +184,12 @@ export default function Header() {
     }
 
     return (
-        <AppBar className={header} color="transparent" variant="outlined" position="absolute">
+        <AppBar
+            className={header}
+            color="transparent"
+            variant="outlined"
+            position="absolute"
+        >
             {mobileView ? displayMobile() : displayDesktop()}
         </AppBar>
     )
